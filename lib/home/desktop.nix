@@ -1,8 +1,7 @@
-# lib/home/desktop.nix
+# ./lib/home/desktop.nix
 { pkgs
 , ...
 }:
-
 {
   imports = [
     ./desktop/battery-monitor.nix
@@ -22,6 +21,7 @@
   home.packages = with pkgs; [
     #+----- Audio & Media ------------------------
     ani-cli # Cli tool to browse and play anime
+    cliamp # Terminal Winamp - a retro terminal music player inspired by Winamp 2.x
     imv # Powerful Wayland image viewer
     pamixer # Audio control
     playerctl # CMD-Line to control media players
@@ -29,7 +29,6 @@
     wiremix # TUI mixer for PipeWire
 
     #+----- System Utilities & TUIs --------------
-    bitwarden-desktop
     bluetui # TUI for bluetooth
     gum # Tasty Bubble Gum for your shell
     htop # TUI process viewer
@@ -46,13 +45,13 @@
     waypaper # GUI wallpaper setter for Wayland-based window managers
 
     #+----- Security and Auth --------------------
+    bitwarden-desktop # Secure and free password manager for all of your devices
     libsecret # Library for storing and retrieving passwords and other secrets
 
     #+----- Desktoos Apps ------------------------
     evince # PDF Viewer
     gnome-calculator
     localsend # AirDrop alternative
-    remmina # RDP
     zoom-us # zoom.us video conferencing application
 
     #+----- Screenshots & Screen Recording -------

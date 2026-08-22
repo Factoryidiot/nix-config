@@ -4,7 +4,7 @@
 }: {
 
   services.mako = {
-    enable = true;
+    enable = false;
   };
 
   xdg.configFile = {

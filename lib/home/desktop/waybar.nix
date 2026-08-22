@@ -5,7 +5,7 @@
 }: {
 
   programs.waybar = {
-    enable = true;
+    enable = false;
   };
 
   xdg.configFile = {

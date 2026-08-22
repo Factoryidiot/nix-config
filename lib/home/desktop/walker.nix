@@ -10,8 +10,8 @@
   ];
 
   programs.walker = {
-    enable = true;
-    runAsService = true;
+    enable = false;
+    runAsService = false;
   };
 
   xdg.configFile = {
