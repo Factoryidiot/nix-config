@@ -29,4 +29,13 @@
     };
   };
 
+  qt = {
+    enable = true;
+    platformTheme.name = "gtk";
+    style = {
+      name = "nordic";
+      package = pkgs.nordic;
+    };
+  };
+
 }
