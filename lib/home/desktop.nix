@@ -5,6 +5,7 @@
 
 {
   imports = [
+    ./desktop/battery-monitor.nix
     ./desktop/browser.nix
     ./desktop/cliphist.nix
     ./desktop/cursor.nix
