@@ -1,4 +1,5 @@
-{ pkgs
+{ inputs
+, pkgs
 , username
 , ...
 }: {
@@ -9,6 +10,8 @@
   hardware.ksm.enable = true;
 
   environment.systemPackages = with pkgs; [
+    inputs.vm-curator.packages.${pkgs.system}.default
+    qemu
     spice
     spice-gtk
     spice-protocol
