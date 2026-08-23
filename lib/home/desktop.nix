@@ -17,12 +17,12 @@
     ./desktop/waybar.nix
     ./desktop/terminaltexteffects.nix
     ./desktop/vm-curator.nix
+    ./desktop/cliamp.nix
   ];
 
   home.packages = with pkgs; [
     #+----- Audio & Media ------------------------
     ani-cli # Cli tool to browse and play anime
-    cliamp # Terminal Winamp - a retro terminal music player inspired by Winamp 2.x
     imv # Powerful Wayland image viewer
     pamixer # Audio control
     playerctl # CMD-Line to control media players
@@ -73,4 +73,5 @@
 
   terminaltexteffects.enable = true;
   vm-curator.enable = true;
+  cliamp.enable = true;
 }
