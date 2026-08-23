@@ -16,6 +16,7 @@
     ./desktop/walker.nix
     ./desktop/waybar.nix
     ./desktop/terminaltexteffects.nix
+    ./desktop/vm-curator.nix
   ];
 
   home.packages = with pkgs; [
@@ -71,4 +72,5 @@
   ];
 
   terminaltexteffects.enable = true;
+  vm-curator.enable = true;
 }
