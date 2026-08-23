@@ -11,7 +11,6 @@ in
   environment.systemPackages = with pkgs.llm-agents; [
     antigravity-cli
     openspec # Spec-Driven Development Framework
-    pi
   ];
 
   #+----- Impermanence Persistence -------------
@@ -20,7 +19,6 @@ in
     users.${username} = {
       directories = [
         ".gemini"
-        ".pi"
       ];
     };
   };
