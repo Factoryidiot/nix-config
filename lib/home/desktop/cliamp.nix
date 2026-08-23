@@ -11,6 +11,8 @@
   config = lib.mkIf config.cliamp.enable {
     home.packages = with pkgs; [
       cliamp
+      ffmpeg
+      yt-dlp
     ];
 
     xdg.configFile."cliamp/config.toml".source =
