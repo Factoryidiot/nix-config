@@ -61,7 +61,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     vm-curator = {
-      url = "github:mroboff/vm-curator";
+      url = "github:mroboff/vm-curator/cdcf2acc2027a4db07e9f65b046d4e3119ee8a08";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
