@@ -15,12 +15,19 @@ This project manages NixOS and Home Manager configurations for multiple systems 
 - **Desktop Environment:**
   - **Window Manager:** Hyprland (Wayland compositor)
   - **Shell:** zsh with powerlevel10k
-  - **Other Tools:** Waybar, Mako, Walker, fastfetch (for system stats), etc.
+  - **Desktop Shell & Notifications:** Quickshell (top status bar, application & action launcher menu, native DBus notification daemon)
 - **Secrets Management:** `agenix` for declarative secret management.
 
 ### Execution Environment
 
 This project is primarily developed and managed on a NixOS system. Consequently, `nix` commands (e.g., `nix build`, `nix flake fmt`) and NixOS-specific tools are directly available in the system PATH.
+
+System rebuilds and switches use standard NixOS tooling with explicit flake host targets:
+```bash
+cd ~/.nixos
+sudo nixos-rebuild switch --flake .#<hostname>  # e.g., .#whio, .#kea, .#tahi
+```
+Avoid assuming third-party helper wrappers (such as `nh`) are present unless explicitly installed and enabled in the configuration.
 
 ## 2. ARCHITECTURE
 
@@ -36,11 +43,11 @@ The project is structured to separate concerns for hosts, users, and reusable mo
   - `hardware-configuration.nix`: Hardware-specific settings.
   - `persistence.nix`: Defines persistent data using `impermanence`.
 
-- **`/users`**: Contains user-specific configurations. The main entry point for each user is `home.nix` (e.g., `/users/rhys/home.nix`), which defines the user's Home Manager configuration.
+- **`/users`**: Contains user-specific configurations. The main entry point for each user is `home.nix` (e.g., `/users/factory/default.nix` / `desktop.nix`), which defines the user's Home Manager configuration.
 
 - **`/lib`**: Contains reusable NixOS and Home Manager modules, organized into `nixos` and `home` subdirectories. This is where the bulk of the configuration logic resides.
   - `/lib/nixos/`: Modules for system-level services and packages (e.g., `nvidia.nix`, `secureboot.nix`).
-  - `/lib/home/`: Modules for user-level applications and dotfiles (e.g., `git.nix`, `zsh.nix`, `desktop/hyprland.nix`).
+  - `/lib/home/`: Modules for user-level applications and dotfiles (e.g., `git.nix`, `zsh.nix`, `desktop/quickshell.nix`, `desktop/hyprland.nix`).
 
 - **External Dotfiles (`~/.dotfiles`)**: Raw configuration files (dotfiles) for various applications are now managed in a *separate* Git repository, typically cloned to `~/.dotfiles`. These files are linked into the user's home directory by `home-manager` using the `home.file` option. This approach decouples raw dotfiles from the Nix configuration repository (`~/.nixos`), allowing for easier management and sharing of application-specific configurations independently.
 
@@ -76,7 +83,14 @@ Adherence to these guidelines is crucial for maintaining the quality and consist
     - When enabled, it should:
       - Add the application's package to `home.packages`.
       - Link the configuration file from the *external* `~/.dotfiles` directory to the correct location in the user's home directory using `home.file`. The path to your dotfiles repo can be referenced dynamically using `${config.home.homeDirectory}/.dotfiles/...`.
-3.  **Import Module:** Import the new module into users/user/home.nix
+3.  **Import Module:** Import the new module into user home configuration.
+
+### Quickshell Development Rules
+
+- **Detached Process Execution:** Always use `Quickshell.execDetached(["zsh", "-c", cmd])` for launching external scripts, TUIs, or applications from QML buttons. Do not use singleton `Process` objects for interactive launchers as they lock UI execution when processes stay active.
+- **Native System Tray Menus:** Keep `//@ pragma UseQApplication` at the top of `shell.qml` so Qt initializes in `QApplication` mode. Delegate tray context menus to `modelData.display(window, x, y)` for native platform submenus (e.g., Steam game lists, Bitwarden).
+- **Hyprland IPC:** Use standard socket dispatcher strings with `Hyprland.dispatch("workspace <id>")` instead of Lua API wrappers.
+- **Qt & GTK Styling:** Ensure `qt.platformTheme.name = "gtk"` and `pkgs.nordic` are configured in Home Manager so native Qt popup menus inherit the system Nord dark palette.
 
 ### Secrets Management
 
