@@ -6,6 +6,7 @@
   imports = [
     ./desktop/battery-monitor.nix
     ./desktop/browser.nix
+    ./desktop/cliamp.nix
     ./desktop/cliphist.nix
     ./desktop/cursor.nix
     ./desktop/hyprland.nix
@@ -13,11 +14,10 @@
     ./desktop/quickshell.nix
     ./desktop/swayosd.nix
     ./desktop/terminal.nix
+    ./desktop/terminaltexteffects.nix
     ./desktop/walker.nix
     ./desktop/waybar.nix
-    ./desktop/terminaltexteffects.nix
     ./desktop/vm-curator.nix
-    ./desktop/cliamp.nix
   ];
 
   home.packages = with pkgs; [
@@ -49,9 +49,9 @@
     bitwarden-desktop # Secure and free password manager for all of your devices
     libsecret # Library for storing and retrieving passwords and other secrets
 
-    #+----- Desktoos Apps ------------------------
+    #+----- Desktop Apps ------------------------
     evince # PDF Viewer
-    gnome-calculator
+    gnome-calculator # Application that solves mathematical equations and is suitable as a default application in a Desktop environment
     localsend # AirDrop alternative
     zoom-us # zoom.us video conferencing application
 
@@ -64,14 +64,10 @@
     #    gpu-screen-recorder			# Screen recording utility
 
     #+----- Virtualisation -----------------------
-    #quickemu
 
     #+----- XDG & Portals ------------------------
     xdg-terminal-exec
     xdg-utils
   ];
-
-  terminaltexteffects.enable = true;
-  vm-curator.enable = true;
-  cliamp.enable = true;
 }
+
