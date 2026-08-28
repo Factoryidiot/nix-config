@@ -55,6 +55,7 @@ in
         }
 
         # misc
+        ".config/gdrive"
         ".config/pulse"
         ".pki"
 
