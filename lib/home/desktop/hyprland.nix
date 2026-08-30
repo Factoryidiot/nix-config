@@ -11,6 +11,7 @@
   };
 
   services.hyprsunset.enable = true;
+  services.hypridle.enable = true;
 
   # Link the configuration file from your dotfiles directory
   xdg.configFile = {

@@ -13,8 +13,10 @@ in
 {
 
   # This makes them available as system daemons managed by NixOS.
-  #programs.hyprlock = pkgs-unstable.hyprlock;
-  #services.hypridle = pkgs-unstable.hypridle;
+  programs.hyprlock = {
+    enable = true;
+    package = pkgs-unstable.hyprlock;
+  };
 
   programs.hyprland = {
     enable = true;
