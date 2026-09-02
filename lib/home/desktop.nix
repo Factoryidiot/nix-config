@@ -10,13 +10,10 @@
     ./desktop/cliphist.nix
     ./desktop/cursor.nix
     ./desktop/hyprland.nix
-    ./desktop/mako.nix
     ./desktop/quickshell.nix
     ./desktop/swayosd.nix
     ./desktop/terminal.nix
     ./desktop/terminaltexteffects.nix
-    ./desktop/walker.nix
-    ./desktop/waybar.nix
     ./desktop/vm-curator.nix
   ];
 
