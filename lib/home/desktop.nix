@@ -11,7 +11,6 @@
     ./desktop/cursor.nix
     ./desktop/hyprland.nix
     ./desktop/quickshell.nix
-    ./desktop/swayosd.nix
     ./desktop/terminal.nix
     ./desktop/terminaltexteffects.nix
     ./desktop/vm-curator.nix
