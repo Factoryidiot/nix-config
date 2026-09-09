@@ -103,12 +103,12 @@
           hostArgs = specialArgs // { inherit hostname username isServer; };
         in
         nixpkgs.lib.nixosSystem {
-          inherit system;
           specialArgs = hostArgs; # Pass the combined args
           modules = commonModules
             ++ modules
             ++ [
             ({ ... }: {
+              nixpkgs.hostPlatform = system;
               nixpkgs.config.allowUnfree = true;
               home-manager.users.${username} = import ./users/${username}/default.nix {
                 inherit (hostArgs) isServer;

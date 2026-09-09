@@ -10,7 +10,7 @@
   hardware.ksm.enable = true;
 
   environment.systemPackages = with pkgs; [
-    inputs.vm-curator.packages.${pkgs.system}.default
+    inputs.vm-curator.packages.${pkgs.stdenv.hostPlatform.system}.default
     qemu
     spice
     spice-gtk
