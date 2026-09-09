@@ -280,4 +280,9 @@
 
   };
 
+  xdg.desktopEntries.nixvim = {
+    name = "Nixvim";
+    noDisplay = true;
+  };
+
 }

@@ -10,6 +10,10 @@
     installBatSyntax = true;
   };
 
+  home.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+  ];
+
   xdg.configFile = {
     "alacritty/alacritty.toml".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/alacritty/alacritty.toml";
@@ -23,7 +27,11 @@
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/ghostty/screensaver";
   };
 
-  home.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-  ];
+  xdg.desktopEntries = {
+    "com.mitchellh.ghostty" = {
+      name = "Ghostty";
+      noDisplay = true;
+    };
+  };
+
 }
