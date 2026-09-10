@@ -13,6 +13,14 @@
   services.hyprsunset.enable = true;
   services.hypridle.enable = true;
 
+  systemd.user.services.hypridle = {
+    Service = {
+      Environment = [
+        "PATH=${config.home.homeDirectory}/.dotfiles/bin:${config.home.profileDirectory}/bin:/run/current-system/sw/bin"
+      ];
+    };
+  };
+
   # Link the configuration file from your dotfiles directory
   xdg.configFile = {
     #+----- Main Hyprland configuration ----------
