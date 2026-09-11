@@ -27,11 +27,4 @@
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/ghostty/screensaver";
   };
 
-  xdg.desktopEntries = {
-    "com.mitchellh.ghostty" = {
-      name = "Ghostty";
-      noDisplay = true;
-    };
-  };
-
 }

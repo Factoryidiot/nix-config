@@ -280,23 +280,4 @@
 
   };
 
-  xdg.desktopEntries = {
-    vim = {
-      name = "Vim";
-      noDisplay = true;
-    };
-    gvim = {
-      name = "GVim";
-      noDisplay = true;
-    };
-    nvim = {
-      name = "Neovim wrapper";
-      noDisplay = true;
-    };
-    nixvim = {
-      name = "Nixvim";
-      noDisplay = true;
-    };
-  };
-
 }

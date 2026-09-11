@@ -14,9 +14,13 @@
   services.hypridle.enable = true;
 
   systemd.user.services.hypridle = {
+    Unit = {
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
     Service = {
       Environment = [
-        "PATH=${config.home.homeDirectory}/.dotfiles/bin:${config.home.profileDirectory}/bin:/run/current-system/sw/bin"
+        "PATH=${config.home.homeDirectory}/.dotfiles/bin:${config.home.profileDirectory}/bin:/run/wrappers/bin:/run/current-system/sw/bin"
       ];
     };
   };

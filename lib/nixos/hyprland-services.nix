@@ -18,6 +18,9 @@ in
     package = pkgs-unstable.hyprlock;
   };
 
+  # Prevent NixOS module from generating a systemd user drop-in that restricts PATH
+  services.hypridle.enable = lib.mkForce false;
+
   programs.hyprland = {
     enable = true;
     withUWSM = true;
