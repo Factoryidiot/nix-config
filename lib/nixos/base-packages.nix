@@ -21,6 +21,8 @@
       wget
       nixpkgs-fmt
       nmap
+      sqlite
+      desktop-file-utils
     ];
     variables.EDITOR = "vim";
   };
