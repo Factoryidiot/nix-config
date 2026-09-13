@@ -11,9 +11,9 @@ let
   # =========================================================================
   # Set all 3 UUIDs here after formatting (see hosts/ruru/INSTALL.md)
   # =========================================================================
-  BOOT_ESP_UUID = "0000-0000"; # /dev/nvme0n1p1 (FAT32 EFI partition)
-  NVME_LUKS_UUID = "00000000-0000-0000-0000-000000000000"; # /dev/nvme0n1p2 (LUKS partition)
-  BTRFS_UUID = "00000000-0000-0000-0000-000000000000"; # /dev/mapper/crypted (Decrypted BTRFS filesystem)
+  BOOT_ESP_UUID = "2FA0-6F70"; # /dev/nvme0n1p1 (FAT32 EFI partition)
+  NVME_LUKS_UUID = "f3153384-24c2-47fd-937c-23cfae68ff51"; # /dev/nvme0n1p2 (LUKS partition)
+  BTRFS_UUID = "ef8e9938-7e76-48a5-a5f2-1bd643ad7150"; # /dev/mapper/crypted (Decrypted BTRFS filesystem)
 in
 {
 
@@ -25,9 +25,10 @@ in
   boot.loader.efi.efiSysMountPoint = "/boot";
   boot.loader.systemd-boot.enable = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "tpm_crb" "tpm_tis" ];
   boot.initrd.kernelModules = [ ];
   boot.initrd.systemd.enable = true;
+  boot.initrd.systemd.emergencyAccess = true;
   boot.kernelParams = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
