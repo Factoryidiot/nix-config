@@ -17,6 +17,12 @@
     options = [ "nofail" ]; # Prevent boot hang if pool is missing
   };
 
+  fileSystems."/storage/appdata" = {
+    device = "tank/appdata";
+    fsType = "zfs";
+    options = [ "nofail" ];
+  };
+
   services.avahi = {
     enable = true;
     nssmdns4 = true;
