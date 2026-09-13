@@ -83,13 +83,6 @@ in
       neededForBoot = true;
     };
 
-  fileSystems."/snapshots" = lib.mkDefault
-    {
-      device = "/dev/disk/by-uuid/${BTRFS_UUID}";
-      fsType = "btrfs";
-      options = btrfsOptions ++ [ "subvol=@snapshots" ];
-    };
-
   fileSystems."/swap" = lib.mkDefault
     {
       device = "/dev/disk/by-uuid/${BTRFS_UUID}";

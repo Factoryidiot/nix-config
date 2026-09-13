@@ -62,10 +62,6 @@
                       mountOptions = [ "compress-force=zstd:1" ];
                       mountpoint = "/persistent";
                     };
-                    "@snapshots" = {
-                      mountOptions = [ "compress-force=zstd:1" ];
-                      mountpoint = "/snapshots";
-                    };
                     "@swap" = {
                       mountpoint = "/swap";
                       swap.swapfile.size = "16G";

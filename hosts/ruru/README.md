@@ -30,7 +30,6 @@ Drive: /dev/nvme0n1 (M.2 NVMe SSD)
     ├── subvol=@persistent ───────────────────────── /persistent (Preserved state, SSH keys, Wi-Fi keys, Jellyfin session)
     ├── subvol=@swap ─────────────────────────────── /swap (16 GiB swapfile)
     ├── subvol=@tmp ──────────────────────────────── /tmp (Temporary files)
-    ├── subvol=@snapshots ────────────────────────── /snapshots (Snapper snapshots)
     └── subvolid=5 ───────────────────────────────── /btr_pool
 ```
 
