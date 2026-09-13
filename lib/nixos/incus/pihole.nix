@@ -127,6 +127,9 @@ in
 
             ${pkgs.incus}/bin/incus exec ${containerName} -- chown -R pihole:pihole /etc/pihole
 
+            # Configure wildcard .lan DNS resolution to Traefik proxy
+            ${pkgs.incus}/bin/incus exec ${containerName} -- pihole-FTL --config misc.dnsmasq_lines '["address=/lan/172.16.1.201"]' || true
+
             ${pkgs.incus}/bin/incus exec ${containerName} -- pihole restartdns
 
             ${pkgs.incus}/bin/incus exec ${traefikContainer} -- killall -HUP traefik || true
