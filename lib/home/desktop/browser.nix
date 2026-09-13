@@ -42,6 +42,7 @@
     languagePacks = [ "en-NZ" "en-GB" ];
     package = pkgs.wrapFirefox (pkgs.firefox-unwrapped.override { pipewireSupport = true; }) { };
     profiles.default.settings = {
+      "security.enterprise_roots.enabled" = true;
       "browser.shell.checkDefaultBrowser" = false;
       "extensions.autoDisableScopes" = 0;
       "browser.aboutConfig.showWarning" = false;
@@ -113,6 +114,11 @@
     };
 
     policies = {
+      Certificates = {
+        Install = [
+          "/etc/ssl/certs/ca-certificates.crt"
+        ];
+      };
       # Updates & Background Services
       AppAutoUpdate = false;
       BackgroundAppUpdate = false;
