@@ -164,6 +164,18 @@
           ];
         };
 
+        ruru = mkNixosSystem {
+          name = "ruru";
+          username = "ruru";
+          isServer = true;
+          modules = [
+            ./hosts/ruru/default.nix
+            {
+              system.stateVersion = "26.05";
+            }
+          ];
+        };
+
       };
 
       # Standard outputs for convenience
@@ -172,6 +184,7 @@
         nixos-system-tahi = self.nixosConfigurations.tahi.config.system.build.toplevel;
         nixos-system-kea = self.nixosConfigurations.kea.config.system.build.toplevel;
         nixos-system-whio = self.nixosConfigurations.whio.config.system.build.toplevel;
+        nixos-system-ruru = self.nixosConfigurations.ruru.config.system.build.toplevel;
       };
 
     };
