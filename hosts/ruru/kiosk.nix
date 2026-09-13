@@ -8,13 +8,12 @@ let
   # (zwp_idle_inhibit_manager_v1) during video playback, preventing swayidle
   # from triggering display sleep while shows/movies are playing.
   kioskSession = pkgs.writeShellScript "kiosk-session" ''
-    # Start swayidle for display DPMS power-saving (turn off screen after 15 min idle)
-    ${pkgs.swayidle}/bin/swayidle -w \
-      timeout 900 '${pkgs.wlopm}/bin/wlopm --off "*"' \
-      resume '${pkgs.wlopm}/bin/wlopm --on "*"' &
+    export QT_QPA_PLATFORM=wayland
+    export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+    export NIXOS_OZONE_WL=1
 
-    # Launch Jellyfin Media Player in 10-foot Big Screen TV mode
-    exec ${pkgs.jellyfin-media-player}/bin/jellyfin-media-player --tv
+    # Launch Jellyfin Desktop in 10-foot Big Screen TV mode
+    exec ${pkgs.jellyfin-media-player}/bin/jellyfin-desktop --tv --fullscreen
   '';
 in
 {
@@ -23,6 +22,7 @@ in
   services.cage = {
     enable = true;
     user = "ruru";
+    extraArguments = [ "-s" ]; # Enable XWayland support
     program = "${kioskSession}";
   };
 
