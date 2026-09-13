@@ -47,11 +47,11 @@ Drive 1: /dev/sda (240 GB SATA SSD - OS Drive)
     ├── subvol=@snapshots ────────────────────────── /snapshots (Snapper snapshots)
     └── subvolid=5 ───────────────────────────────── /btr_pool
 
-Drives 2-5: /dev/sdb .. /dev/sde (4x 6 TB Storage Array)
-└── ZFS Storage Pool / NFS Shares
-    ├── NFS /mnt/pve/tahinas_game_servers
-    ├── NFS /mnt/pve/truenas_backups
-    └── NFS /mnt/pve/truenas_isos
+Drives 2-4: 3 × 6 TB Western Digital Red HDDs
+└── ZFS Storage Pool: tank (RAIDZ1, ~10.8 TB usable)
+    ├── tank/data ────────────────────────────────── /storage/data (Media & downloads, 1M recordsize)
+    ├── tank/appdata ─────────────────────────────── /storage/appdata (SQLite & configs, 16k recordsize)
+    └── tank/incus ───────────────────────────────── Incus container storage pool
 ```
 
 ### Mountpoints & Purpose
@@ -59,11 +59,13 @@ Drives 2-5: /dev/sdb .. /dev/sde (4x 6 TB Storage Array)
 | Mountpoint | Device / Subvolume | FS Type | Mount Options | Purpose |
 | :--- | :--- | :--- | :--- | :--- |
 | `/` | `tmpfs` | `tmpfs` | `relatime,mode=755,size=8G` | Ephemeral stateless root |
-| `/boot` | `/dev/sda1` | `vfat` | `fmask=0077,dmask=0077` | Bootloader & kernel |
-| `/nix` | `/dev/sda2` (`@nix`) | `btrfs` | `noatime,compress=zstd:1,ssd,discard=async` | Nix package store |
-| `/persistent` | `/dev/sda2` (`@persistent`) | `btrfs` | `noatime,compress=zstd:1,ssd,discard=async` | Preserved server state & SSH keys |
-| `/swap` | `/dev/sda2` (`swap`) | `btrfs` | `noatime,nodatacow` | 24 GiB swapfile |
-| `/tmp` | `/dev/sda2` (`@tmp`) | `btrfs` | `noatime,compress=zstd:1,ssd,discard=async` | Transient files |
+| `/boot` | `/dev/disk/by-uuid/...` | `vfat` | `fmask=0077,dmask=0077` | Bootloader & kernel |
+| `/nix` | SSD (`@nix`) | `btrfs` | `noatime,compress=zstd:1,ssd,discard=async` | Nix package store |
+| `/persistent` | SSD (`@persistent`) | `btrfs` | `noatime,compress=zstd:1,ssd,discard=async` | Preserved server state & SSH keys |
+| `/swap` | SSD (`swap`) | `btrfs` | `noatime,nodatacow` | 24 GiB swapfile |
+| `/tmp` | SSD (`@tmp`) | `btrfs` | `noatime,compress=zstd:1,ssd,discard=async` | Transient files |
+| `/storage/data` | `tank/data` | `zfs` | `nofail,recordsize=1M` | Media libraries, downloads, and Samba share |
+| `/storage/appdata` | `tank/appdata` | `zfs` | `nofail,recordsize=16k` | SQLite databases for *arr & Jellyfin |
 
 ---
 
@@ -71,8 +73,9 @@ Drives 2-5: /dev/sdb .. /dev/sde (4x 6 TB Storage Array)
 
 - **Target User:** `factory` (Server mode, `isServer = true`)
 - **Kernel:** Linux Long-Term Support Kernel (`pkgs.linuxPackages_6_12`) with `amd_pstate=active`
-- **Virtualization:** **Incus** container & VM hypervisor with bridge networking
-- **NAS & Storage:** ZFS support, NFS server exports, and automated maintenance timers
+- **Virtualization:** **Incus 7.0** hypervisor with bridge networking on `br0`
+- **Container Services:** Traefik, Step-CA, Pi-hole, Unbound, Jellyfin, Sonarr, Radarr, Prowlarr, Bazarr, SABnzbd, qBittorrent
+- **NAS & Storage:** ZFS RAIDZ1, Samba file sharing, automated weekly scrubs & snapshots
 - **Remote Access:** OpenSSH daemon with key-only authentication (`PermitRootLogin = prohibit-password`, `PasswordAuthentication = false`)
 - **LLM Infrastructure:** Local inference tooling and LLM agent services
 
@@ -80,4 +83,5 @@ Drives 2-5: /dev/sdb .. /dev/sde (4x 6 TB Storage Array)
 
 ## 🔗 Related Documentation
 
+- 🌐 [**tahi Services & Infrastructure Directory**](file:///home/factory/.nixos/hosts/tahi/SERVICES.md) — Complete guide to containers, ports, Traefik ingress, ZFS layout, and maintenance runbooks.
 - 📖 [**tahi Installation Guide**](file:///home/factory/.nixos/hosts/tahi/INSTALL.md) — Headless server installation and SSH bootstrap runbook.
