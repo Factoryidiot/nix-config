@@ -152,6 +152,44 @@ in
               certResolver: stepca
       EOF"
 
+            # 3. Homepage Hub Route (tahi.lan)
+            ${pkgs.incus}/bin/incus exec ${containerName} -- sh -c "cat <<'EOF' > /etc/traefik/conf.d/homepage.yml
+      http:
+        routers:
+          homepage:
+            rule: \"Host(\`tahi.lan\`)\"
+            service: homepage-service
+            entryPoints:
+              - websecure
+            tls:
+              certResolver: stepca
+
+        services:
+          homepage-service:
+            loadBalancer:
+              servers:
+                - url: \"http://172.16.1.200:8082\"
+      EOF"
+
+            # 4. Grafana Route (grafana.lan)
+            ${pkgs.incus}/bin/incus exec ${containerName} -- sh -c "cat <<'EOF' > /etc/traefik/conf.d/grafana.yml
+      http:
+        routers:
+          grafana:
+            rule: \"Host(\`grafana.lan\`)\"
+            service: grafana-service
+            entryPoints:
+              - websecure
+            tls:
+              certResolver: stepca
+
+        services:
+          grafana-service:
+            loadBalancer:
+              servers:
+                - url: \"http://172.16.1.200:3000\"
+      EOF"
+
             ${pkgs.incus}/bin/incus exec ${containerName} -- systemctl restart traefik
     '';
   };

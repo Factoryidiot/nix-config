@@ -25,6 +25,9 @@ in
 
     #+----- Incus virtualisation ------------------
     ../../lib/nixos/incus
+
+    #+----- Monitoring & Hub ---------------------
+    ../../lib/nixos/monitoring.nix
   ];
 
   hardware.cpu.amd.updateMicrocode = true;

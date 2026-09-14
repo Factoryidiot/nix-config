@@ -18,6 +18,9 @@ in
       "/etc/nix/inputs"
       "/var/lib/nixos"
       "/var/log" # logs and troubleshooting
+      "/var/lib/prometheus2"
+      "/var/lib/grafana"
+      "/var/lib/homepage"
     ];
 
     files = [
