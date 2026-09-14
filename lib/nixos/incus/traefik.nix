@@ -120,28 +120,23 @@ in
 
             # --- Dynamic Configuration (The Routes) ---
 
-            # 1. Incus UI/API Route
+            # 1. Incus UI/API Route (TCP Passthrough for mTLS)
             ${pkgs.incus}/bin/incus exec ${containerName} -- sh -c "cat <<'EOF' > /etc/traefik/conf.d/incus.yml
-      http:
+      tcp:
         routers:
           incus:
-            rule: \"Host(\`incus.lan\`)\"
+            rule: \"HostSNI(\`incus.lan\`)\"
             service: incus-service
             entryPoints:
               - websecure
             tls:
-              certResolver: stepca
+              passthrough: true
 
         services:
           incus-service:
             loadBalancer:
               servers:
-                - url: \"https://172.16.1.200:8443\"
-              serversTransport: incusTransport
-
-        serversTransports:
-          incusTransport:
-            insecureSkipVerify: true
+                - address: \"172.16.1.200:8443\"
       EOF"
 
             # 2. Traefik Dashboard Route
