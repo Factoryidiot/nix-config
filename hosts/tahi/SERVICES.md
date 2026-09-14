@@ -91,6 +91,9 @@ All web services are securely exposed on the local network via trusted HTTPS cer
 | **Prowlarr** | `tahi-arr` | `172.16.1.211` | `9696` | `https://prowlarr.lan` | Centralized indexer proxy & automation sync |
 | **Bazarr** | `tahi-arr` | `172.16.1.211` | `6767` | `https://bazarr.lan` | Subtitle downloader for Sonarr & Radarr |
 | **qBittorrent** | `tahi-arr` | `172.16.1.211` | `8085` | `https://qbit.lan` | BitTorrent client (`:6881` BT traffic) |
+| **Homepage** | `tahi` (Host) | `172.16.1.200` | `8082` | `https://tahi.lan` | Central homelab portal with real-time service widgets |
+| **Grafana** | `tahi` (Host) | `172.16.1.200` | `3000` | `https://grafana.lan` | Observability & telemetry dashboards (ZFS, SMART, CPU) |
+| **Prometheus** | `tahi` (Host) | `172.16.1.200` | `9090` | `http://172.16.1.200:9090` | Time-series metrics engine & scrapers |
 | **Samba** | `tahi` (Host) | `172.16.1.200` | `445`, `139` | `smb://tahi/data` | Network storage share for `/storage/data` |
 
 ---
