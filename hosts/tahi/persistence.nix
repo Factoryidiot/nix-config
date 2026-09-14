@@ -18,8 +18,15 @@ in
       "/etc/nix/inputs"
       "/var/lib/nixos"
       "/var/log" # logs and troubleshooting
+      "/var/lib/systemd"
+      "/var/lib/libvirt"
       "/var/lib/prometheus2"
-      "/var/lib/grafana"
+      {
+        directory = "/var/lib/grafana";
+        user = "grafana";
+        group = "grafana";
+        mode = "0750";
+      }
       "/var/lib/homepage"
     ];
 

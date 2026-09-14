@@ -118,6 +118,7 @@
   services.homepage-dashboard = {
     enable = true;
     listenPort = 8082;
+    allowedHosts = "tahi.lan,tahi.lan:443,172.16.1.200,172.16.1.200:8082,localhost:8082,127.0.0.1:8082";
     environmentFiles = [ "/persistent/var/lib/homepage/homepage.env" ];
 
     settings = {
